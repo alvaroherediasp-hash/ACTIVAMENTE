@@ -210,18 +210,24 @@ button {
     z-index: 2;
     width: min(1200px, 100%);
     margin: 0 auto;
-    min-height: 520px;
-    display: grid;
-    grid-template-columns: 45% 55%;
-    align-items: center;
-    gap: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-radial {
+    position: relative;
+    width: min(760px, 100%);
+    height: 780px;
+    max-height: 82vh;
 }
 
 .hero-floating-logo {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 430px;
     height: 430px;
-    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -275,29 +281,55 @@ button {
 }
 
 @keyframes floatingLogo {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    0%, 100% { transform: translate(-50%, -50%); }
+    50% { transform: translate(-50%, calc(-50% - 12px)); }
+}
+
+.orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 620px;
+    height: 620px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px dashed rgba(169, 138, 84, 0.35);
+    pointer-events: none;
+}
+
+.orbit-ring::before {
+    content: "";
+    position: absolute;
+    inset: -14px;
+    border-radius: 50%;
+    border: 1px solid rgba(233, 227, 210, 0.06);
 }
 
 .hero-subjects {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-    padding: 30px;
+    position: absolute;
+    inset: 0;
+}
+
+.orbit-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)));
 }
 
 .subject-button {
     position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
     border: none;
     cursor: pointer;
-    padding: 22px;
-    min-height: 145px;
+    padding: 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    border-radius: 22px;
+    gap: 8px;
     background: rgba(255, 255, 255, 0.045);
     border: 1px solid var(--color-border);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
@@ -306,10 +338,10 @@ button {
 }
 
 .subject-button:hover {
-    transform: translateY(-8px);
+    transform: translateY(-8px) scale(1.05);
     background: var(--color-surface);
     border-color: rgba(169, 138, 84, 0.5);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
 }
 
 .subject-button.active {
@@ -321,15 +353,15 @@ button {
 }
 
 .subject-icon {
-    width: 65px;
-    height: 65px;
+    width: 46px;
+    height: 46px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
-    border-radius: 18px;
+    padding: 8px;
+    border-radius: 50%;
     background: var(--color-bg);
-    font-size: 28px;
+    font-size: 22px;
     transition: var(--transition);
 }
 
@@ -342,9 +374,10 @@ button {
 .subject-button:hover .subject-icon { transform: scale(1.08) rotate(3deg); }
 
 .subject-label {
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 700;
     text-align: center;
+    line-height: 1.2;
 }
 
 .hero-subject-info {
@@ -395,10 +428,7 @@ button {
 .logo-container.changing img { opacity: 0; transform: scale(.75) rotate(-8deg); }
 
 .subject-cursos {
-    grid-column: 1 / -1;
-    width: 190px;
-    justify-self: center;
-    background: linear-gradient(135deg, rgba(169, 138, 84, 0.14), rgba(255, 255, 255, 0.9));
+    background: linear-gradient(135deg, rgba(169, 138, 84, 0.22), rgba(255, 255, 255, 0.05));
     border: 1px solid rgba(169, 138, 84, 0.35);
 }
 
@@ -530,12 +560,15 @@ button {
 ========================================================= */
 
 @media (max-width: 950px) {
-    .hero-main { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .hero-radial { width: min(560px, 100%); height: 580px; }
+    .orbit-ring { width: 450px; height: 450px; }
     .hero-floating-logo { width: 340px; height: 340px; }
     .logo-orbit { width: 310px; height: 310px; }
     .logo-container { width: 215px; height: 215px; padding: 25px; }
-    .hero-subjects { gap: 15px; padding: 15px; }
-    .subject-button { min-height: 125px; padding: 15px; }
+    .orbit-item { transform: translate(calc(-50% + var(--dx-t)), calc(-50% + var(--dy-t))); }
+    .subject-button { width: 115px; height: 115px; padding: 10px; }
+    .subject-icon { width: 38px; height: 38px; font-size: 18px; }
+    .subject-label { font-size: 11px; }
     .materias-grid, .advantages-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -546,15 +579,18 @@ button {
     .logo-text em { font-size: 9px; }
     .btn-campus { padding: 9px 14px !important; font-size: 13px; }
     .hero { min-height: auto; padding: 125px 20px 70px; }
-    .hero-main { grid-template-columns: 1fr; gap: 25px; }
-    .hero-floating-logo { width: 290px; height: 290px; }
+    .hero-radial { position: static; width: 100%; height: auto; }
+    .orbit-ring { display: none; }
+    .hero-floating-logo { position: relative; top: auto; left: auto; transform: none; width: 290px; height: 290px; margin: 0 auto; }
+    @keyframes floatingLogo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
     .logo-orbit { width: 260px; height: 260px; }
     .logo-container { width: 190px; height: 190px; padding: 22px; }
-    .hero-subjects { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0; }
-    .subject-cursos { grid-column: auto; width: auto; justify-self: stretch; }
-    .subject-button { min-height: 115px; padding: 12px; border-radius: 18px; }
-    .subject-icon { width: 52px; height: 52px; padding: 8px; font-size: 22px; }
-    .subject-label { font-size: 13px; }
+    .hero-subjects { position: static; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 0; margin-top: 25px; justify-items: center; }
+    .orbit-item { position: static; transform: none; }
+    .subject-cursos { grid-column: 1 / -1; }
+    .subject-button { width: 130px; height: 130px; padding: 14px; }
+    .subject-icon { width: 46px; height: 46px; padding: 8px; font-size: 20px; }
+    .subject-label { font-size: 12px; }
     .hero-subject-info { width: 100%; margin-top: 20px; padding: 20px 18px; border-radius: 18px; }
     .subject-quote { font-size: 15px; }
     .section { padding: 80px 20px; }
