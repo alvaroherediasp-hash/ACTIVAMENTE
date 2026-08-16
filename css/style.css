@@ -108,13 +108,15 @@ button {
 .logo {
     display: flex;
     align-items: center;
+    gap: 12px;
     flex-shrink: 0;
 }
 
 .logo img {
-    width: 150px;
-    height: auto;
+    width: 56px;
+    height: 56px;
     object-fit: contain;
+    border-radius: 50%;
     transition: var(--transition);
 }
 
@@ -122,82 +124,43 @@ button {
     transform: scale(1.03);
 }
 
-.nav-menu {
+.logo-text {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    line-height: 1.25;
 }
 
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.nav-links li a {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 10px 14px;
+.logo-text strong {
     color: var(--color-heading);
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.logo-text em {
+    color: var(--color-accent);
+    font-size: 11px;
     font-weight: 600;
-    transition: var(--transition);
-}
-
-.nav-links li:not(:last-child) a::after {
-    content: "";
-    position: absolute;
-    bottom: 3px;
-    left: 14px;
-    width: 0;
-    height: 2px;
-    background: var(--color-accent);
-    transition: var(--transition);
-}
-
-.nav-links li:not(:last-child) a:hover::after {
-    width: calc(100% - 28px);
-}
-
-.nav-links li a:hover {
-    color: var(--color-accent-dark);
+    font-style: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .btn-campus {
     margin-left: 8px;
     padding: 11px 20px !important;
     border-radius: 50px;
-    background: var(--color-primary);
-    color: var(--color-white) !important;
-    box-shadow: 0 7px 20px rgba(22, 51, 47, 0.18);
+    background: var(--color-accent);
+    color: var(--color-primary-dark) !important;
+    box-shadow: 0 7px 22px rgba(201, 164, 104, 0.30);
     transition: var(--transition);
 }
 
 .btn-campus:hover {
-    background: var(--color-accent);
-    color: var(--color-primary) !important;
+    background: var(--color-accent-dark);
+    color: var(--color-primary-dark) !important;
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.menu-toggle {
-    display: none;
-    width: 44px;
-    height: 44px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-}
-
-.menu-toggle span {
-    width: 24px;
-    height: 2px;
-    background: var(--color-heading);
-    transition: var(--transition);
+    box-shadow: 0 10px 28px rgba(201, 164, 104, 0.4);
 }
 
 /* =========================================================
@@ -211,6 +174,7 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 50px;
     overflow: hidden;
     background:
         radial-gradient(circle at 20% 50%, rgba(169, 138, 84, 0.14), transparent 35%),
@@ -247,18 +211,32 @@ button {
     z-index: 2;
     width: min(1200px, 100%);
     margin: 0 auto;
-    min-height: 520px;
-    display: grid;
-    grid-template-columns: 45% 55%;
-    align-items: center;
-    gap: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-radial {
+    position: relative;
+    width: min(760px, 100%);
+    height: 780px;
+    transform-origin: center top;
+}
+
+@media (min-width: 951px) and (max-height: 820px) {
+    .hero-radial { transform: scale(0.82); }
+}
+
+@media (min-width: 951px) and (max-height: 680px) {
+    .hero-radial { transform: scale(0.68); }
 }
 
 .hero-floating-logo {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 430px;
     height: 430px;
-    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -286,12 +264,12 @@ button {
 .logo-container {
     position: relative;
     z-index: 3;
-    width: 260px;
-    height: 260px;
+    width: 300px;
+    height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 30px;
+    padding: 20px;
     border-radius: 50%;
     background: rgba(20, 32, 30, 0.9);
     border: 8px solid rgba(169, 138, 84, 0.2);
@@ -312,76 +290,102 @@ button {
 }
 
 @keyframes floatingLogo {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    0%, 100% { transform: translate(-50%, -50%); }
+    50% { transform: translate(-50%, calc(-50% - 12px)); }
+}
+
+.orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 620px;
+    height: 620px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px dashed rgba(169, 138, 84, 0.35);
+    pointer-events: none;
+}
+
+.orbit-ring::before {
+    content: "";
+    position: absolute;
+    inset: -14px;
+    border-radius: 50%;
+    border: 1px solid rgba(233, 227, 210, 0.06);
 }
 
 .hero-subjects {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-    padding: 30px;
+    position: absolute;
+    inset: 0;
+}
+
+.orbit-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)));
+}
+
+.orbit-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.orbit-link:hover {
+    transform: translateY(-8px);
+}
+
+.orbit-link:active {
+    transform: translateY(-2px) scale(0.97);
+}
+
+.orbit-link.active {
+    transform: translateY(-6px);
 }
 
 .subject-button {
     position: relative;
-    border: none;
-    cursor: pointer;
-    padding: 22px;
-    min-height: 145px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.045);
-    border: 1px solid var(--color-border);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-    color: var(--color-heading);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: block;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.45);
     transition: var(--transition);
 }
 
-.subject-button:hover {
-    transform: translateY(-8px);
-    background: var(--color-surface);
-    border-color: rgba(169, 138, 84, 0.5);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+.subject-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+    display: block;
 }
 
-.subject-button.active {
-    background: var(--color-primary);
-    border-color: var(--color-heading);
-    color: var(--color-white);
-    transform: translateY(-6px);
-    box-shadow: 0 18px 45px rgba(22, 51, 47, 0.25);
+.orbit-link:hover .subject-button {
+    box-shadow: 0 22px 38px rgba(0, 0, 0, 0.55), 0 0 0 4px rgba(201, 164, 104, 0.35);
 }
 
-.subject-icon {
-    width: 65px;
-    height: 65px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    border-radius: 18px;
-    background: var(--color-bg);
-    font-size: 28px;
-    transition: var(--transition);
+.orbit-link.active .subject-button {
+    box-shadow: 0 20px 36px rgba(0, 0, 0, 0.5), 0 0 0 4px rgba(233, 227, 210, 0.4);
 }
-
-.subject-button.active .subject-icon {
-    background: rgba(255, 255, 255, 0.14);
-}
-
-.subject-icon img { width: 100%; height: 100%; object-fit: contain; transition: transform .35s ease; }
-.subject-button:hover .subject-icon img { transform: scale(1.1) rotate(3deg); }
-.subject-button:hover .subject-icon { transform: scale(1.08) rotate(3deg); }
 
 .subject-label {
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 700;
+    color: var(--color-heading);
     text-align: center;
+    line-height: 1.2;
+    letter-spacing: 0.3px;
+}
+
+.orbit-link.active .subject-label,
+.orbit-link:hover .subject-label {
+    color: var(--color-accent-light);
 }
 
 .hero-subject-info {
@@ -389,7 +393,7 @@ button {
     z-index: 3;
     width: min(850px, calc(100% - 30px));
     min-height: 130px;
-    margin: 20px auto 0;
+    margin: 0 auto;
     padding: 22px 30px;
     text-align: center;
     border-radius: 22px;
@@ -431,30 +435,11 @@ button {
 .hero-subject-info.changing { opacity: 0; transform: translateY(8px); }
 .logo-container.changing img { opacity: 0; transform: scale(.75) rotate(-8deg); }
 
-.subject-cursos {
-    grid-column: 1 / -1;
-    width: 190px;
-    justify-self: center;
-    background: linear-gradient(135deg, rgba(169, 138, 84, 0.14), rgba(255, 255, 255, 0.9));
-    border: 1px solid rgba(169, 138, 84, 0.35);
-}
-
-.subject-cursos:hover {
-    border-color: var(--color-accent);
-    box-shadow: 0 18px 45px rgba(169, 138, 84, 0.22);
-}
-
-.subject-cursos.active {
-    background: var(--color-accent);
-    color: var(--color-heading);
-    border-color: var(--color-accent);
-}
-
 /* =========================================================
    PRESENTACIÓN
 ========================================================= */
 
-.presentation { padding: 90px 20px; background: var(--color-white); }
+.presentation { padding: 90px 20px; background: var(--color-surface); }
 .presentation-container { width: min(calc(100% - 20px), 900px); margin-inline: auto; text-align: center; }
 .presentation .section-tag { display: inline-block; margin-bottom: 14px; color: var(--color-accent-dark); font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
 .presentation h1 { font-size: clamp(34px, 5vw, 52px); color: var(--color-heading); letter-spacing: -1.5px; margin-bottom: 20px; }
@@ -479,7 +464,7 @@ button {
 .section-header p { color: var(--color-text-light); font-size: 16px; }
 
 /* MATERIAS */
-.materias { background: var(--color-surface); }
+.materias { background: var(--color-bg); }
 .materias-grid { width: min(calc(100% - 20px), var(--container-width)); margin-inline: auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .materia-card { position: relative; padding: 30px 25px; border: 1px solid var(--color-border); border-radius: var(--radius-medium); background: var(--color-surface); overflow: hidden; transition: var(--transition); }
 .materia-card::before { content: ""; position: absolute; width: 100px; height: 100px; border-radius: 50%; background: var(--color-accent); opacity: 0.10; top: -50px; right: -50px; }
@@ -493,10 +478,10 @@ button {
 .card-link:hover { color: var(--color-accent-dark); letter-spacing: 0.3px; }
 
 /* INSTITUCIÓN */
-.institution { background: var(--color-bg); }
+.institution { background: var(--color-surface); }
 .institution-container { width: min(calc(100% - 20px), var(--container-width)); margin-inline: auto; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; align-items: center; }
 .institution-image { position: relative; min-height: 480px; display: flex; align-items: center; justify-content: center; }
-.institution-image img { position: relative; z-index: 2; width: 300px; height: 300px; object-fit: contain; padding: 30px; border-radius: 40px; background: var(--color-surface); box-shadow: var(--shadow-medium); }
+.institution-image img { position: relative; z-index: 2; width: 300px; height: 300px; object-fit: contain; padding: 30px; border-radius: 40px; background: var(--color-bg); box-shadow: var(--shadow-medium); }
 .image-decoration { position: absolute; width: 350px; height: 350px; border: 2px solid var(--color-accent); border-radius: 40px; transform: rotate(8deg); opacity: 0.45; }
 .institution-content h2 { max-width: 600px; font-size: clamp(36px, 5vw, 52px); line-height: 1.1; color: var(--color-heading); margin-bottom: 25px; }
 .institution-content h2 span { color: var(--color-accent); }
@@ -507,16 +492,16 @@ button {
 .feature span { font-size: 13px; font-weight: 600; color: var(--color-heading); }
 
 /* POR QUÉ ELEGIRNOS */
-.why-us { background: var(--color-surface); }
+.why-us { background: var(--color-bg); }
 .advantages-grid { width: min(calc(100% - 20px), var(--container-width)); margin-inline: auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.advantage-card { padding: 30px; border-radius: var(--radius-medium); background: var(--color-bg); border: 1px solid transparent; transition: var(--transition); }
+.advantage-card { padding: 30px; border-radius: var(--radius-medium); background: var(--color-surface); border: 1px solid transparent; transition: var(--transition); }
 .advantage-card:hover { border-color: rgba(169, 138, 84, 0.4); transform: translateY(-5px); box-shadow: var(--shadow-soft); }
 .advantage-number { margin-bottom: 25px; color: var(--color-accent); font-size: 13px; font-weight: 800; }
 .advantage-card h3 { color: var(--color-heading); margin-bottom: 12px; font-size: 20px; }
 .advantage-card p { color: var(--color-text-light); font-size: 14px; }
 
 /* CAPACITACIONES */
-.training { background: var(--color-bg); }
+.training { background: var(--color-surface); }
 .training-container { width: min(calc(100% - 20px), var(--container-width)); margin-inline: auto; display: grid; grid-template-columns: 1fr 0.65fr; align-items: center; gap: 80px; }
 .training-content h2 { font-size: clamp(36px, 5vw, 54px); line-height: 1.1; color: var(--color-heading); margin-bottom: 22px; }
 .training-content h2 span { display: block; color: var(--color-accent); }
@@ -567,48 +552,48 @@ button {
 ========================================================= */
 
 @media (max-width: 950px) {
-    .hero-main { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .hero-radial { width: min(560px, 100%); height: 580px; }
+    .orbit-ring { width: 450px; height: 450px; }
     .hero-floating-logo { width: 340px; height: 340px; }
     .logo-orbit { width: 310px; height: 310px; }
-    .logo-container { width: 215px; height: 215px; padding: 25px; }
-    .hero-subjects { gap: 15px; padding: 15px; }
-    .subject-button { min-height: 125px; padding: 15px; }
+    .logo-container { width: 248px; height: 248px; padding: 18px; }
+    .orbit-item { transform: translate(calc(-50% + var(--dx-t)), calc(-50% + var(--dy-t))); }
+    .subject-button { width: 115px; height: 115px; padding: 0; }
     .materias-grid, .advantages-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-grid { grid-template-columns: repeat(2, 1fr); max-width: 620px; }
 }
 
 @media (max-width: 768px) {
     .navbar { height: 72px; width: calc(100% - 30px); }
-    .logo img { width: 120px; }
-    .menu-toggle { display: flex; }
-    .nav-menu {
-        position: absolute; top: 72px; left: 15px; right: 15px;
-        display: block; padding: 15px;
-        background: rgba(18, 30, 28, 0.97); backdrop-filter: blur(15px);
-        border-radius: 18px; box-shadow: var(--shadow-medium);
-        opacity: 0; visibility: hidden; transform: translateY(-10px);
-        transition: var(--transition);
-    }
-    .nav-menu.active { opacity: 1; visibility: visible; transform: translateY(0); }
-    .nav-links { flex-direction: column; align-items: stretch; gap: 3px; }
-    .nav-links li a { justify-content: center; padding: 13px; border-radius: 10px; }
-    .nav-links li a:hover { background: var(--color-bg); }
-    .nav-links li a::after { display: none !important; }
-    .btn-campus { margin: 8px 0 0 !important; }
-    .hero { min-height: auto; padding: 125px 20px 70px; }
-    .hero-main { grid-template-columns: 1fr; gap: 25px; }
-    .hero-floating-logo { width: 290px; height: 290px; }
+    .logo img { width: 46px; height: 46px; }
+    .logo-text strong { font-size: 14px; }
+    .logo-text em { font-size: 9px; }
+    .btn-campus { padding: 9px 14px !important; font-size: 13px; }
+    .hero { min-height: auto; padding: 125px 20px 70px; gap: 25px; }
+    .hero-radial { position: static; width: 100%; height: auto; }
+    .orbit-ring { display: none; }
+    .hero-floating-logo { position: relative; top: auto; left: auto; transform: none; width: 290px; height: 290px; margin: 0 auto; }
+    @keyframes floatingLogo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
     .logo-orbit { width: 260px; height: 260px; }
-    .logo-container { width: 190px; height: 190px; padding: 22px; }
-    .hero-subjects { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0; }
-    .subject-cursos { grid-column: auto; width: auto; justify-self: stretch; }
-    .subject-button { min-height: 115px; padding: 12px; border-radius: 18px; }
-    .subject-icon { width: 52px; height: 52px; padding: 8px; font-size: 22px; }
-    .subject-label { font-size: 13px; }
-    .hero-subject-info { width: 100%; margin-top: 20px; padding: 20px 18px; border-radius: 18px; }
+    .logo-container { width: 219px; height: 219px; padding: 16px; }
+    .hero-subjects { position: static; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 0; margin-top: 25px; justify-items: center; }
+    .orbit-item { position: static; transform: none; }
+    .orbit-item:last-child { grid-column: 1 / -1; }
+    .subject-button { width: 130px; height: 130px; padding: 0; }
+    .hero-subject-info { width: 100%; margin-top: 0; padding: 20px 18px; border-radius: 18px; }
     .subject-quote { font-size: 15px; }
     .section { padding: 80px 20px; }
     .materias-grid, .advantages-grid { grid-template-columns: 1fr; }
     .institution-container, .training-container, .campus-container { grid-template-columns: 1fr; gap: 45px; }
+    .institution-image { min-height: 320px; }
+    .institution-image img { width: 220px; height: 220px; padding: 22px; }
+    .image-decoration { width: 260px; height: 260px; }
+    .institution-content h2 { font-size: 34px; }
+    .institution-features { grid-template-columns: 1fr; }
+    .training-card { padding: 28px; }
+    .campus-container { text-align: center; }
+    .campus-content p { margin-inline: auto; }
+    .campus-visual img { width: 190px; height: 190px; }
     .contact-grid { grid-template-columns: 1fr; }
     .footer-container { grid-template-columns: 1fr; gap: 35px; }
     .footer-brand { text-align: center; }
@@ -616,55 +601,40 @@ button {
     .footer-links { align-items: center; text-align: center; }
 }
 
-
-/* 🔆 Órbita general */
-.hero-radial {
-  position: relative;
-  animation: orbitRotation 30s linear infinite;
-}
-
-@keyframes orbitRotation {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* 🎖️ Medallas */
-.subject-icon {
-  position: relative;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.subject-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 50%;
-  box-shadow: 0 0 12px rgba(201, 164, 104, 0.4);
-  animation: medalGlow 4s ease-in-out infinite;
-  transition: transform 0.35s ease;
-}
-
-/* ✨ Brillo intermitente */
-@keyframes medalGlow {
-  0%   { filter: brightness(1) drop-shadow(0 0 6px rgba(255, 215, 0, 0.4)); }
-  50%  { filter: brightness(1.3) drop-shadow(0 0 12px rgba(255, 215, 0, 0.8)); }
-  100% { filter: brightness(1) drop-shadow(0 0 6px rgba(255, 215, 0, 0.4)); }
+@media (max-width: 400px) {
+    .hero-floating-logo { width: 250px; height: 250px; }
+    .logo-orbit { width: 225px; height: 225px; }
+    .logo-container { width: 190px; height: 190px; padding: 14px; }
+    .subject-button { width: 110px; height: 110px; padding: 0; }
+    .presentation h1 { font-size: 34px; }
 }
 
 /* =========================================================
-   MEDALLAS ORBITALES
-   ========================================================= */
+   CONTACTO — item como link (WhatsApp)
+========================================================= */
 
-.subject-medal {
-    position: relative;
+.contact-item-link {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+}
 
-    width: 112px;
-    height: 112px;
+.contact-item-link:hover .contact-icon {
+    transform: scale(1.1);
+}
+
+/* =========================================================
+   BOTÓN FLOTANTE DE WHATSAPP
+========================================================= */
+
+.whatsapp-float {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 999;
+
+    width: 60px;
+    height: 60px;
 
     display: flex;
     align-items: center;
@@ -672,279 +642,35 @@ button {
 
     border-radius: 50%;
 
-    /* Fondo inspirado en el logo */
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            #f7f1d8 0%,
-            #e9dfb8 38%,
-            #c8a85c 39%,
-            #9a7935 44%,
-            #164f50 45%,
-            #0d393b 100%
-        );
+    background: #25D366;
+    color: var(--color-white);
 
-    /* Doble borde dorado */
-    border: 4px solid #d5b86a;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 
-    box-shadow:
-        0 0 0 3px #174f50,
-        0 0 0 6px #b8954d,
-        0 10px 25px rgba(0,0,0,.35),
-        0 0 25px rgba(210,180,95,.20);
+    animation: whatsappPulse 2.4s ease-in-out infinite;
 
-    transition:
-        transform .35s ease,
-        box-shadow .35s ease,
-        filter .35s ease;
-
-    overflow: hidden;
-
-    z-index: 2;
+    transition: var(--transition);
 }
 
-
-/* =========================================================
-   ORNAMENTO INTERIOR DE LA MEDALLA
-   ========================================================= */
-
-.subject-medal::before {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 8px;
-
-    border-radius: 50%;
-
-    border: 1px solid rgba(246,235,194,.85);
-
-    box-shadow:
-        inset 0 0 0 2px rgba(15,65,66,.35),
-        inset 0 0 15px rgba(0,0,0,.25);
-
-    pointer-events: none;
-
-    z-index: 1;
+.whatsapp-float:hover {
+    transform: scale(1.08);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
 }
 
-
-/* Segundo círculo ornamental */
-
-.subject-medal::after {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 15px;
-
-    border-radius: 50%;
-
-    border: 1px dashed rgba(224,194,112,.75);
-
-    pointer-events: none;
-
-    z-index: 1;
-}
-
-
-/* =========================================================
-   IMAGEN DEL ICONO
-   ========================================================= */
-
-.subject-medal img {
-
-    position: relative;
-
-    width: 65px;
-    height: 65px;
-
-    object-fit: contain;
-
-    z-index: 3;
-
-    filter:
-        drop-shadow(0 3px 4px rgba(0,0,0,.35));
-
-    transition:
-        transform .35s ease,
-        filter .35s ease;
-}
-
-
-/* =========================================================
-   HOVER
-   ========================================================= */
-
-.subject-button:hover .subject-medal {
-
-    transform:
-        translateY(-8px)
-        scale(1.08);
-
-    box-shadow:
-        0 0 0 3px #174f50,
-        0 0 0 6px #d5b86a,
-        0 15px 35px rgba(0,0,0,.45),
-        0 0 35px rgba(218,185,92,.55);
-
-    filter: brightness(1.08);
-}
-
-
-.subject-button:hover .subject-medal img {
-
-    transform:
-        scale(1.12)
-        rotate(4deg);
-
-    filter:
-        drop-shadow(0 5px 8px rgba(0,0,0,.45));
-}
-
-
-/* =========================================================
-   MEDALLA ACTIVA
-   ========================================================= */
-
-.subject-button.active .subject-medal {
-
-    box-shadow:
-        0 0 0 3px #174f50,
-        0 0 0 6px #e0c477,
-        0 0 30px rgba(224,196,119,.65),
-        0 12px 30px rgba(0,0,0,.40);
-
-    animation: medalGlow 3s ease-in-out infinite;
-}
-
-
-@keyframes medalGlow {
-
-    0% {
-        filter: brightness(1);
+@keyframes whatsappPulse {
+    0%, 100% {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(37, 211, 102, 0.5);
     }
-
     50% {
-        filter: brightness(1.10);
-    }
-
-    100% {
-        filter: brightness(1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 0 10px rgba(37, 211, 102, 0);
     }
 }
 
-
-/* =========================================================
-   ETIQUETA
-   ========================================================= */
-
-.subject-label {
-
-    margin-top: 12px;
-
-    padding: 6px 14px;
-
-    border-radius: 20px;
-
-    background: rgba(10,48,49,.88);
-
-    border: 1px solid rgba(211,181,103,.75);
-
-    color: #f5ebce;
-
-    font-size: 14px;
-
-    font-weight: 700;
-
-    letter-spacing: .5px;
-
-    text-align: center;
-
-    white-space: nowrap;
-
-    box-shadow:
-        0 5px 15px rgba(0,0,0,.25);
-
-    transition:
-        background .3s ease,
-        color .3s ease,
-        transform .3s ease;
-}
-
-
-.subject-button:hover .subject-label {
-
-    background: #d0b267;
-
-    color: #173f40;
-
-    transform: translateY(-3px);
-}
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 950px) {
-
-    .subject-medal {
-        width: 88px;
-        height: 88px;
-    }
-
-    .subject-medal img {
-        width: 52px;
-        height: 52px;
-    }
-
-    .subject-label {
-        font-size: 12px;
-        padding: 5px 10px;
+@media (max-width: 700px) {
+    .whatsapp-float {
+        right: 16px;
+        bottom: 16px;
+        width: 54px;
+        height: 54px;
     }
 }
-
-
-/* =========================================================
-   CELULARES
-   ========================================================= */
-
-@media (max-width: 768px) {
-
-    .subject-medal {
-        width: 70px;
-        height: 70px;
-
-        border-width: 3px;
-
-        box-shadow:
-            0 0 0 2px #174f50,
-            0 0 0 4px #b8954d,
-            0 7px 16px rgba(0,0,0,.30);
-    }
-
-    .subject-medal::before {
-        inset: 6px;
-    }
-
-    .subject-medal::after {
-        inset: 11px;
-    }
-
-    .subject-medal img {
-        width: 42px;
-        height: 42px;
-    }
-
-    .subject-label {
-        margin-top: 7px;
-
-        font-size: 10px;
-
-        padding: 4px 8px;
-
-        letter-spacing: .2px;
-    }
-}
-
